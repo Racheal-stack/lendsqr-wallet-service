@@ -1,5 +1,6 @@
 import type { Knex } from 'knex';
 import config from '../../config';
+import path from 'path';
 
 const knexConfig: { [key: string]: Knex.Config } = {
   development: {
@@ -17,10 +18,12 @@ const knexConfig: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: './migrations',
+      directory: path.resolve(__dirname, '..', 'migrations'),
+      extension: 'ts',
     },
     seeds: {
-      directory: './seeds',
+      directory: path.resolve(__dirname, '..', 'seeds'),
+      extension: 'ts',
     },
   },
 
@@ -39,10 +42,12 @@ const knexConfig: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: './migrations',
+      directory: path.resolve(__dirname, '..', 'migrations'),
+      extension: 'ts',
     },
     seeds: {
-      directory: './seeds',
+      directory: path.resolve(__dirname, '..', 'seeds'),
+      extension: 'ts',
     },
   },
 
@@ -64,10 +69,12 @@ const knexConfig: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: './migrations',
+      directory: path.resolve(__dirname, '..', 'migrations'),
+      extension: 'ts',
     },
     seeds: {
-      directory: './seeds',
+      directory: path.resolve(__dirname, '..', 'seeds'),
+      extension: 'ts',
     },
   },
 };
