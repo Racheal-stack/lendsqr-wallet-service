@@ -17,4 +17,20 @@ router.get('/me', authenticate, (req, res, next) => {
   authController.getProfile(req, res, next);
 });
 
+router.get('/blacklist', authenticate, (req, res, next) => {
+  authController.getBlacklistedUsers(req, res, next);
+});
+
+router.get('/clean-users', authenticate, (req, res, next) => {
+  authController.getNonBlacklistedUsers(req, res, next);
+});
+
+router.get('/blacklist-stats', authenticate, (req, res, next) => {
+  authController.getBlacklistStats(req, res, next);
+});
+
+router.post('/check-karma', (req, res, next) => {
+  authController.checkKarma(req, res, next);
+});
+
 export default router;

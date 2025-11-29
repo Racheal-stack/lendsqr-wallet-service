@@ -77,6 +77,33 @@ export class UserRepository {
     const user = await db(this.tableName).where({ phone_number: phoneNumber }).first();
     return !!user;
   }
+
+  async findBlacklisted(): Promise<User[]> {
+    return db(this.tableName)
+      .where({ is_blacklisted: true })
+      .orderBy('created_at', 'desc');
+  }
+
+  async findNonBlacklisted(): Promise<User[]> {
+    return db(this.tableName)
+      .where({ is_blacklisted: false, is_active: true })
+      .orderBy('created_at', 'desc');
+  }
+
+  async getBlacklistStats(): Promise<{ total: number; blacklisted: number; clean: number }> {
+    const [stats] = await db(this.tableName)
+      .select(
+        db.raw('COUNT(*) as total'),
+        db.raw('SUM(CASE WHEN is_blacklisted = true THEN 1 ELSE 0 END) as blacklisted'),
+        db.raw('SUM(CASE WHEN is_blacklisted = false THEN 1 ELSE 0 END) as clean')
+      );
+    
+    return {
+      total: Number(stats.total),
+      blacklisted: Number(stats.blacklisted),
+      clean: Number(stats.clean)
+    };
+  }
 }
 
 export const userRepository = new UserRepository();

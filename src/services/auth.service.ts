@@ -22,6 +22,7 @@ import db from '../database/connection';
 const SALT_ROUNDS = 10;
 
 export class AuthService {
+  
   async register(userData: CreateUserDTO): Promise<AuthResponse> {
     const { email, password, first_name, last_name, phone_number } = userData;
 
