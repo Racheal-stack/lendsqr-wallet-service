@@ -16,11 +16,9 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
 
-    // Foreign keys
     table.foreign('wallet_id').references('id').inTable('wallets').onDelete('CASCADE');
     table.foreign('reference_wallet_id').references('id').inTable('wallets').onDelete('SET NULL');
 
-    // Indexes
     table.index('wallet_id');
     table.index('reference_wallet_id');
     table.index('reference');

@@ -1,6 +1,6 @@
 import knex, { Knex } from 'knex';
 import knexConfig from './knexfile';
-import config from '../../config';
+import config from '../config';
 
 const environment = config.env as 'development' | 'test' | 'production';
 const connectionConfig = knexConfig[environment];
