@@ -15,17 +15,14 @@ interface ValidationRule {
 const validateField = (value: any, rule: ValidationRule): string | null => {
   const { field, required, type, minLength, maxLength, min, max } = rule;
 
-  // Check required
   if (required && (value === undefined || value === null || value === '')) {
     return `${field} is required`;
   }
 
-  // Skip further validation if value is empty and not required
   if (value === undefined || value === null || value === '') {
     return null;
   }
 
-  // Type validation
   switch (type) {
     case 'string':
       if (typeof value !== 'string') {
@@ -93,7 +90,6 @@ export const validate = (rules: ValidationRule[]) => {
   };
 };
 
-// Pre-defined validation schemas
 export const registerValidation = validate([
   { field: 'email', required: true, type: 'email' },
   { field: 'password', required: true, type: 'string', minLength: 6, maxLength: 100 },
@@ -112,7 +108,7 @@ export const fundWalletValidation = validate([
 ]);
 
 export const transferValidation = validate([
-  { field: 'recipient_email', required: true, type: 'email' },
+  { field: 'recipient_account_number', required: true, type: 'string', minLength: 11, maxLength: 11 },
   { field: 'amount', required: true, type: 'amount' },
 ]);
 

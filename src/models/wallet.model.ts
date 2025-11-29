@@ -1,6 +1,7 @@
 export interface Wallet {
   id: string;
   user_id: string;
+  account_number: string;
   balance: number;
   currency: string;
   is_active: boolean;
@@ -11,6 +12,7 @@ export interface Wallet {
 export interface WalletResponse {
   id: string;
   user_id: string;
+  account_number: string;
   balance: number;
   currency: string;
   is_active: boolean;
@@ -23,7 +25,8 @@ export interface FundWalletDTO {
 }
 
 export interface TransferDTO {
-  recipient_email: string;
+  recipient_account_number: string;
+  recipient_name?: string;
   amount: number;
   description?: string;
 }

@@ -1,16 +1,14 @@
 import createApp from './app';
 import config from './config';
-import db from './database/seeds/connection';
+import db from './database/connection';
 
 const app = createApp();
 
 const startServer = async (): Promise<void> => {
   try {
-    // Test database connection
     await db.raw('SELECT 1');
     console.log('✅ Database connected successfully');
 
-    // Start server
     app.listen(config.port, () => {
       console.log(`
 🚀 Demo Credit Wallet Service
@@ -28,19 +26,16 @@ const startServer = async (): Promise<void> => {
   }
 };
 
-// Handle uncaught exceptions
 process.on('uncaughtException', (error) => {
   console.error('Uncaught Exception:', error);
   process.exit(1);
 });
 
-// Handle unhandled promise rejections
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
   process.exit(1);
 });
 
-// Graceful shutdown
 process.on('SIGTERM', async () => {
   console.log('SIGTERM received. Shutting down gracefully...');
   await db.destroy();

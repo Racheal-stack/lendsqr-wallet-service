@@ -36,5 +36,6 @@ export interface LoginDTO {
 
 export interface AuthResponse {
   user: UserResponse;
-  token: string;
+  account_number: string;
+  token?: string;
 }
