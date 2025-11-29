@@ -21,7 +21,6 @@ A production-ready MVP wallet service for mobile lending apps, built with Node.j
 - [Security](#security)
 - [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
-- [Contributing](#contributing)
 
 ## ✨ Features
 
