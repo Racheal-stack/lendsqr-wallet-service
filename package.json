@@ -4,7 +4,7 @@
   "description": "Demo Credit Wallet Service - MVP wallet functionality for mobile lending app",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "test": "jest --coverage --detectOpenHandles --forceExit",
