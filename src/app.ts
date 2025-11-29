@@ -41,6 +41,15 @@ const createApp = (): Application => {
     });
   });
 
+  app.get('/api/v1/health', (_req, res) => {
+    res.json({
+      success: true,
+      message: 'Demo Credit Wallet Service is running',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+    });
+  });
+
   app.use('/api/v1', routes);
 
   app.use(notFoundHandler);

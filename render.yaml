@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: racheal-lendsqr-be-test
+    env: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_HOST
+        fromDatabase:
+          name: lendsqr-wallet-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: lendsqr-wallet-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: lendsqr-wallet-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: lendsqr-wallet-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: lendsqr-wallet-db
+          property: database
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 24h
+      - key: ADJUTOR_API_URL
+        value: https://adjutor.lendsqr.com/v2
+      - key: ADJUTOR_API_KEY
+        sync: false
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+
+databases:
+  - name: lendsqr-wallet-db
+    databaseName: lendsqr_wallet
+    plan: free

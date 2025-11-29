@@ -800,6 +800,65 @@ lendsqr-wallet-service/
 
 ## 🚀 Deployment
 
+### Deploy to Render (Free)
+
+This project is configured for deployment on Render's free tier.
+
+**Deployment URL Pattern:**
+```
+https://racheal-lendsqr-be-test.onrender.com
+```
+
+**Steps:**
+
+1. **Push to GitHub**
+```bash
+git add .
+git commit -m "feat: add deployment configuration"
+git push origin dev
+```
+
+2. **Deploy on Render**
+   - Go to [render.com](https://render.com) and sign up/login
+   - Click "New +" → "Blueprint"
+   - Connect your GitHub repository
+   - Select `lendsqr-wallet-service`
+   - Render will automatically detect `render.yaml`
+   - Click "Apply" to deploy
+
+3. **Set Environment Variables**
+   - In Render dashboard, go to your service
+   - Navigate to "Environment" tab
+   - Add your `ADJUTOR_API_KEY`
+
+4. **Access Your API**
+   - Your API will be live at: `https://racheal-lendsqr-be-test.onrender.com`
+   - Health check: `https://racheal-lendsqr-be-test.onrender.com/api/v1/health`
+
+### Deploy to Railway (Alternative)
+
+1. **Deploy on Railway**
+   - Go to [railway.app](https://railway.app)
+   - Click "New Project" → "Deploy from GitHub repo"
+   - Select your repository
+   - Add MySQL database from Railway's services
+   - Set environment variables
+
+2. **Your API URL:**
+   ```
+   https://racheal-lendsqr-be-test.up.railway.app
+   ```
+
+### Local Docker Deployment
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# Stop services
+docker-compose down
+```
+
 ### Build for Production
 
 ```bash
@@ -829,9 +888,16 @@ Response:
 {
   "success": true,
   "message": "Demo Credit Wallet Service is running",
-  "timestamp": "2025-11-29T10:00:00.000Z"
+  "timestamp": "2025-11-30T10:00:00.000Z",
+  "uptime": 3600.5
 }
 ```
+
+### Live API
+
+- **Production URL:** `https://racheal-lendsqr-be-test.onrender.com`
+- **API Base:** `https://racheal-lendsqr-be-test.onrender.com/api/v1`
+- **Health Check:** `https://racheal-lendsqr-be-test.onrender.com/api/v1/health`
 
 
 ## 📄 License
