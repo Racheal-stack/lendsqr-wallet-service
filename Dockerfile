@@ -34,15 +34,11 @@ COPY --from=builder /app/src/database/migrations ./src/database/migrations
 COPY --from=builder /app/src/database/seeds ./src/database/seeds
 COPY --from=builder /app/src/database/knexfile.ts ./src/database/knexfile.ts
 
-# Copy entrypoint script
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 # Expose port
 EXPOSE 3000
 
 # Set environment to production
 ENV NODE_ENV=production
 
-# Start the application with migrations
-ENTRYPOINT ["docker-entrypoint.sh"]
+# Start the application
+CMD ["sh", "-c", "npx knex migrate:latest --knexfile dist/database/knexfile.js && node dist/index.js"]
