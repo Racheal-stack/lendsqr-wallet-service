@@ -29,11 +29,20 @@ RUN npm ci --only=production
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Expose port
+# Copy database migration files from source
+COPY --from=builder /app/src/database/migrations ./dist/database/migrations
+COPY --from=builder /app/src/database/seeds ./dist/database/seeds
+
+# Copy entrypoint script
+COPY docker-entrypoint.sh ./
+RUN chmod +x docker-entrypoint.sh
+
+# Expose port (default 3000, can be overridden by PORT env var)
 EXPOSE 3000
+EXPOSE 10000
 
 # Set environment to production
 ENV NODE_ENV=production
 
-# Start the application
-CMD ["node", "dist/index.js"]
+# Start the application using entrypoint script
+ENTRYPOINT ["./docker-entrypoint.sh"]

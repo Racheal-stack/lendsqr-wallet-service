@@ -1,6 +1,5 @@
 node_modules
 npm-debug.log
-dist
 .env
 .env.local
 .git
@@ -11,3 +10,5 @@ coverage
 *.test.ts
 *.spec.ts
 .DS_Store
+tests/
+src/tests/

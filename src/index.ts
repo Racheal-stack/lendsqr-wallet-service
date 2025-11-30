@@ -9,19 +9,20 @@ const startServer = async (): Promise<void> => {
     await db.raw('SELECT 1');
     console.log('✅ Database connected successfully');
 
-    app.listen(config.port, () => {
+    app.listen(config.port, '0.0.0.0', () => {
       console.log(`
 🚀 Demo Credit Wallet Service
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📡 Server running on port ${config.port}
 🌍 Environment: ${config.env}
-📝 API Base URL: http://localhost:${config.port}/api/v1
-💚 Health Check: http://localhost:${config.port}/api/v1/health
+📝 API Base URL: http://0.0.0.0:${config.port}/api/v1
+💚 Health Check: http://0.0.0.0:${config.port}/api/v1/health
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       `);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);
+    console.error('Error details:', JSON.stringify(error, null, 2));
     process.exit(1);
   }
 };
