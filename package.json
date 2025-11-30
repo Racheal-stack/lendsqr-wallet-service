@@ -16,7 +16,15 @@
     "seed": "knex seed:run --knexfile src/database/knexfile.ts",
     "db:reset": "npm run migrate:rollback && npm run migrate && npm run seed"
   },
-  "keywords": ["wallet", "fintech", "lending", "nodejs", "typescript", "knex", "mysql"],
+  "keywords": [
+    "wallet",
+    "fintech",
+    "lending",
+    "nodejs",
+    "typescript",
+    "knex",
+    "mysql"
+  ],
   "author": "Racheal",
   "license": "ISC",
   "engines": {
