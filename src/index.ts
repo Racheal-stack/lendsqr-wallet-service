@@ -6,8 +6,14 @@ const app = createApp();
 
 const startServer = async (): Promise<void> => {
   try {
-    await db.raw('SELECT 1');
-    console.log('✅ Database connected successfully');
+    // Try to connect to database, but don't fail if it's not available
+    try {
+      await db.raw('SELECT 1');
+      console.log('✅ Database connected successfully');
+    } catch (dbError) {
+      console.error('⚠️  Database connection failed:', dbError);
+      console.error('Server will start anyway, but database operations will fail');
+    }
 
     app.listen(config.port, '0.0.0.0', () => {
       console.log(`
