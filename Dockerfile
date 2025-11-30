@@ -29,11 +29,6 @@ RUN npm ci --only=production
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Copy necessary files
-COPY --from=builder /app/src/database/migrations ./src/database/migrations
-COPY --from=builder /app/src/database/seeds ./src/database/seeds
-COPY --from=builder /app/src/database/knexfile.ts ./src/database/knexfile.ts
-
 # Expose port
 EXPOSE 3000
 
