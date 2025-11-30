@@ -4,15 +4,16 @@ services:
     env: docker
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/v1/health
+    plan: free
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 3000
+        value: 10000
       - key: DB_HOST
         sync: false
       - key: DB_PORT
-        value: 3306
+        sync: false
       - key: DB_USER
         sync: false
       - key: DB_PASSWORD
