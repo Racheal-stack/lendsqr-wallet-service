@@ -9,8 +9,10 @@ import routes from './routes';
 const createApp = (): Application => {
   const app = express();
 
+  app.set('trust proxy', 1);
+
   app.use(helmet());
-  
+
   app.use(cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
@@ -51,9 +53,7 @@ const createApp = (): Application => {
   });
 
   app.use('/api/v1', routes);
-
   app.use(notFoundHandler);
-
   app.use(errorHandler);
 
   return app;
