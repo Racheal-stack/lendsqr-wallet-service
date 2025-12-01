@@ -283,7 +283,7 @@ src/
 
 The service is configured for deployment on Railway.
 
-Production URL: `https://racheal-lendsqr-be-test.onrender.com`
+Production URL: `https://racheal-lendsqr-be-test.up.railway.app`
 
 Build for production:
 ```bash
