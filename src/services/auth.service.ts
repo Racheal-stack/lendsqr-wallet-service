@@ -41,8 +41,6 @@ export class AuthService {
     }
 
     const isBlacklisted = await adjutorService.checkIdentities(email, phone_number);
-
-    console.log('isBlacklisted:', isBlacklisted);
     if (isBlacklisted) {
       throw new BlacklistedUserError('User is blacklisted and cannot be onboarded');
     }

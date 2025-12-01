@@ -10,6 +10,10 @@ dist/
 .env.*.local
 .env.production
 
+# Database setup scripts (already run on production)
+setup-database.js
+database-setup.sql
+
 # IDE
 .idea/
 .vscode/

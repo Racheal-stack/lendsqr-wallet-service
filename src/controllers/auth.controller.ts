@@ -77,7 +77,12 @@ export class AuthController {
 
   async checkKarma(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { identity } = req.body;
+      const identity = req.body?.identity;
+      
+      if (!identity) {
+        return next(new Error('Identity is required in request body'));
+      }
+      
       const isBlacklisted = await adjutorService.isBlacklisted(identity);
       successResponse(res, 'Karma check completed', { 
         identity, 

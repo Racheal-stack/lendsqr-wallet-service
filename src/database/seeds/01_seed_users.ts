@@ -49,6 +49,4 @@ export async function seed(knex: Knex): Promise<void> {
   }));
 
   await knex('wallets').insert(wallets);
-
-  console.log('✅ Seed data inserted successfully');
 }

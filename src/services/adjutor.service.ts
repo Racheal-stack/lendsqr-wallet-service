@@ -4,18 +4,27 @@ import config from '../config';
 interface KarmaCheckResponse {
   status: string;
   message: string;
+  'mock-response'?: string;
   data: {
     karma_identity: string;
     amount_in_contention: string;
-    reason: string;
+    reason: string | null;
     default_date: string;
-    karma_type: string;
-    karma_identity_type: string;
+    karma_type: {
+      karma: string;
+    };
+    karma_identity_type: {
+      identity_type: string;
+    };
     reporting_entity: {
       name: string;
       email: string;
     };
   } | null;
+  meta?: {
+    cost: number;
+    balance: number;
+  };
 }
 
 export class AdjutorService {
@@ -35,7 +44,6 @@ export class AdjutorService {
   async isBlacklisted(identity: string): Promise<boolean> {
     try {
       if (!config.adjutor.apiKey) {
-        console.warn('Adjutor API key not configured. Skipping karma check.');
         return false;
       }
 
@@ -43,7 +51,11 @@ export class AdjutorService {
         `/verification/karma/${encodeURIComponent(identity)}`
       );
 
-      if (response.data?.status === 'success' && response.data?.data?.karma_identity) {
+      if (response.data?.['mock-response']) {
+        return false;
+      }
+
+      if (response.data?.status === 'success' && response.data?.data) {
         return true;
       }
 
@@ -52,8 +64,7 @@ export class AdjutorService {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
         return false;
       }
-
-      console.error('Karma check failed:', error);
+      
       return false;
     }
   }
