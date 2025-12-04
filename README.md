@@ -2,6 +2,82 @@
 
 A wallet service for mobile lending apps built with Node.js, TypeScript, and MySQL. This service handles user registration, wallet management, fund transfers, and integrates with Lendsqr's Karma API for blacklist verification.
 
+## Database Design (E-R Diagram)
+
+### Entity Relationship Diagram
+
+Entity Relationship URL: https://dbdesigner.page.link/pTqdxnqUAQC2sWji6
+
+```
+┌─────────────────────┐
+│       USERS         │
+├─────────────────────┤
+│ PK: id (UUID)       │
+│ email (UNIQUE)      │
+│ password            │
+│ first_name          │
+│ last_name           │
+│ phone_number        │
+│ is_blacklisted      │
+│ is_active           │
+│ created_at          │
+│ updated_at          │
+└─────────────────────┘
+          │
+          │ 1:1
+          │
+          ▼
+┌─────────────────────┐
+│      WALLETS        │
+├─────────────────────┤
+│ PK: id (UUID)       │
+│ FK: user_id (UNIQUE)│
+│ account_number      │
+│ balance (DECIMAL)   │
+│ currency            │
+│ is_active           │
+│ created_at          │
+│ updated_at          │
+└─────────────────────┘
+          │
+          │ 1:N
+          │
+          ▼
+┌─────────────────────┐
+│    TRANSACTIONS     │
+├─────────────────────┤
+│ PK: id (UUID)       │
+│ FK: wallet_id       │
+│ FK: reference_wallet│
+│ type (ENUM)         │
+│ amount (DECIMAL)    │
+│ balance_before      │
+│ balance_after       │
+│ reference (UNIQUE)  │
+│ description         │
+│ status (ENUM)       │
+│ metadata (JSON)     │
+│ created_at          │
+│ updated_at          │
+└─────────────────────┘
+```
+
+### Relationships
+
+- **Users → Wallets**: One-to-One (Each user has exactly one wallet)
+- **Wallets → Transactions**: One-to-Many (Each wallet can have multiple transactions)
+- **Transactions → Wallets**: Many-to-One (reference_wallet_id for transfers)
+
+### Key Design Decisions
+
+- **UUID Primary Keys**: Prevents enumeration attacks and ensures uniqueness
+- **DECIMAL for Money**: Avoids floating-point precision issues (15,2 precision)
+- **Unique Constraints**: Email, phone_number, account_number, transaction reference
+- **Foreign Keys**: Enforces referential integrity
+- **Indexes**: On email, phone_number, account_number, wallet_id for query performance
+- **Audit Trail**: balance_before and balance_after in transactions
+- **ENUM Types**: For transaction type (FUNDING, WITHDRAWAL, TRANSFER_IN, TRANSFER_OUT) and status
+
 ## Features
 
 - User registration and JWT authentication
